@@ -1,6 +1,7 @@
-import React, { Component } from "react"
-import TodoForm from "./TodoForm"
-import TodoItem from "./TodoItem"
+import React, { Component } from "react";
+import TodoForm from "./TodoForm";
+import TodoItem from "./TodoItem";
+import { NavLink } from 'react-router-dom';
 
 const api_url = `http://localhost:4001/api/v1/todos/`
 
@@ -9,15 +10,27 @@ class TodoList extends Component {
         super(props)
 
         this.state = {
-            items: []
+            items: [],
+            bool: true
         }
         this.updateTodoList = this.updateTodoList.bind(this);
     }
     componentDidMount() {
         this.getTasks();
+        //this.getUsers();
+    }
+/*
+    getUsers() {
+        fetch('http://localhost:4001/api/v1/users')
+            .then(response => response.json())
+            .then(response_users => {
+                this.setState({
+                    users: response_users
+                })
+            });
 
     }
-
+*/
     getTasks() {
         fetch(api_url)
             .then(response => response.json())
@@ -49,17 +62,21 @@ class TodoList extends Component {
     render() {
         return (
             <div>
+                <NavLink to="/">
+                Login
+                </NavLink>
                 <TodoForm api_url={api_url} updateTodoList={this.updateTodoList} />
-                <ul id="todo_list">
+                <div id="todo_list">
                     {this.state.items.map((item) => (
                         <TodoItem 
                         key={item.id} 
                         item={item} 
+                        users={this.state.users}
                         handleDelete={this.handleDelete}
                         removeItem={this.removeItem}
                         />
                     ))}
-                </ul>
+                </div>
             </div>
         )
     }

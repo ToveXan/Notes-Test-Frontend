@@ -1,15 +1,18 @@
 import React from 'react';
-import TodoList from './TodoList/TodoList';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import Typography from '@material-ui/core/Typography';
+import GenerateTodo from './TodoList/GenerateTodo';
+import Login from './TodoList/Login';
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Typography variant='h1'>Todo Stream</Typography>
-          <hr />
-          <TodoList />
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/todos" component={GenerateTodo} />
+        </Switch>
       </header>
     </div>
   );
